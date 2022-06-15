@@ -87,6 +87,9 @@ public class MoveEucaryote implements Movable{
 
             int offY = Math.max(coorY - predatoryAnimal.getSpeed(), 0);
             int toY = Math.min(coorY + predatoryAnimal.getSpeed() + 1, fields.length);
+            /*TODO вот тут проблема
+            первый элемент является нул, с учетом того, чтон берется из инициализированного
+            многомерного массив*/
             Field[] lineY =  new Field[toY - offY];
             for (int i = off, j = 0; i < fields.length; i++, j++) {
                 lineY[j] = fields[i][coorX];
