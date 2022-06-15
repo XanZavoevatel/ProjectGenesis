@@ -1,6 +1,8 @@
-package ru.hozhasaitov.app.classes.eukaryotes.animals;
+package ru.hozhasaitov.app.entity.eukaryotes.animals;
 
-import ru.hozhasaitov.app.classes.eukaryotes.Eukaryote;
+import ru.hozhasaitov.app.entity.eukaryotes.Eukaryote;
+import ru.hozhasaitov.app.interfaces.Dieable;
+import ru.hozhasaitov.app.interfaces.Movable;
 
 public abstract class Animal extends Eukaryote {
     protected int speed;
@@ -15,9 +17,6 @@ public abstract class Animal extends Eukaryote {
     }
 
     //-------------ABSTRACT------------------
-
-    protected abstract void move();
-    protected abstract void die();
 
 
 
