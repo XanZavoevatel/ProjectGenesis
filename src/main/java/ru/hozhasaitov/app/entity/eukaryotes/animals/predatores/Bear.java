@@ -13,5 +13,13 @@ public class Bear extends PredatoryAnimal {
     }
 
 
+    @Override
+    public void die() {
 
+    }
+
+    @Override
+    public void spawn() {
+
+    }
 }

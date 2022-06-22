@@ -15,4 +15,19 @@ public class Boar extends HerbivorousAnimal {
         super.speed = 3;
 
     }
+
+    @Override
+    public void die() {
+
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void spawn() {
+
+    }
 }
