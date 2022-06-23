@@ -1,12 +1,10 @@
 package ru.hozhasaitov.app.entity.map;
 
-import java.util.Arrays;
-
 public class PrintMap {
     private PrintMap() {
     }
 
-    public static void printMap(Field[][] fields) {
+    public static void printMap(Cell[][] cells) {
 //        Arrays.stream(fields).forEach(
 //                f -> {
 //                    Arrays.stream(f).forEach(
@@ -14,9 +12,9 @@ public class PrintMap {
 //                System.out.println();
 //                });
 
-        for (Field[] field : fields) {
-            for (int j = 0; j < field.length; j++) {
-                System.out.print(field[j].getView());
+        for (Cell[] cell : cells) {
+            for (int j = 0; j < cell.length; j++) {
+                System.out.print(cell[j].getView());
             }
             System.out.println();
         }

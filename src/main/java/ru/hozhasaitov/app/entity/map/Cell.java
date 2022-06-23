@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Field {
+public class Cell {
     private List<PredatoryAnimal> predatoryAnimals = new ArrayList<>();
     private List<HerbivorousAnimal> herbivorousAnimals = new ArrayList<>();
     private List<Plant> plants = new ArrayList<>();
@@ -18,7 +18,7 @@ public class Field {
 
     private String view;
 
-    public Field() {
+    public Cell() {
        // randomRelief();
 
     }

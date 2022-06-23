@@ -15,6 +15,13 @@ public class Boar extends HerbivorousAnimal {
         super.speed = 3;
 
     }
+    public static void decrementCount() {
+        count--;
+    }
+
+    public static int getCount() {
+        return count;
+    }
 
     @Override
     public void die() {

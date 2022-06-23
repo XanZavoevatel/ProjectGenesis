@@ -11,11 +11,11 @@ public class InitializeMap {
     private InitializeMap() {
     }
 
-    public static void initializeMap(Field[][] fields) {
+    public static void initializeMap(Cell[][] cells) {
 
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                fields[i][j] = new Field();
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j] = new Cell();
 //                fill(fields[i][j]);
 
             }
@@ -24,12 +24,12 @@ public class InitializeMap {
 
     }
 
-    private static void fill(Field field) {
+    private static void fill(Cell cell) {
         int random = ThreadLocalRandom.current().nextInt(0, 100);
         if (random < 50) {
-            field.addEukaryote(new Bear());
+            cell.addEukaryote(new Bear());
         } else {
-            field.addEukaryote(new Boar());
+            cell.addEukaryote(new Boar());
         }
     }
 }
