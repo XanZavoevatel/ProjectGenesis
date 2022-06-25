@@ -23,21 +23,21 @@ public class Constants {
 
     //------------------------------Animal maximumAmount--------------
 
-    public static final int WOLF_MAXIMUM_AMOUNT = 30;
-    public static final int BOA_MAXIMUM_AMOUNT = 30;
-    public static final int FOX_MAXIMUM_AMOUNT = 30;
-    public static final int BEAR_MAXIMUM_AMOUNT = 5;
-    public static final int EAGLE_MAXIMUM_AMOUNT = 20;
-    public static final int HORSE_MAXIMUM_AMOUNT = 20;
-    public static final int DEER_MAXIMUM_AMOUNT = 20;
-    public static final int RABBIT_MAXIMUM_AMOUNT = 150;
-    public static final int MOUSE_MAXIMUM_AMOUNT = 500;
-    public static final int GOAT_MAXIMUM_AMOUNT = 140;
-    public static final int SHEEP_MAXIMUM_AMOUNT = 140;
-    public static final int BOAR_MAXIMUM_AMOUNT = 50;
-    public static final int BUFFALO_MAXIMUM_AMOUNT = 10;
-    public static final int DUCK_MAXIMUM_AMOUNT = 200;
-    public static final int CATERPILLAR_MAXIMUM_AMOUNT = 1000;
-    public static final int PLANTS_MAXIMUM_AMOUNT = 200;
+    public static final int WOLF_LIMIT_AMOUNT = 30;
+    public static final int BOA_LIMIT_AMOUNT = 30;
+    public static final int FOX_LIMIT_AMOUNT = 30;
+    public static final int BEAR_LIMIT_AMOUNT = 5;
+    public static final int EAGLE_LIMIT_AMOUNT = 20;
+    public static final int HORSE_LIMIT_AMOUNT = 20;
+    public static final int DEER_LIMIT_AMOUNT = 20;
+    public static final int RABBIT_LIMIT_AMOUNT = 150;
+    public static final int MOUSE_LIMIT_AMOUNT = 500;
+    public static final int GOAT_LIMIT_AMOUNT = 140;
+    public static final int SHEEP_LIMIT_AMOUNT = 140;
+    public static final int BOAR_LIMIT_AMOUNT = 50;
+    public static final int BUFFALO_LIMIT_AMOUNT = 10;
+    public static final int DUCK_LIMIT_AMOUNT = 200;
+    public static final int CATERPILLAR_LIMIT_AMOUNT = 1000;
+    public static final int PLANTS_LIMIT_AMOUNT = 200;
 
 }

@@ -3,6 +3,7 @@ package ru.hozhasaitov.app.entity.map;
 
 import ru.hozhasaitov.app.entity.eukaryotes.animals.herbivorous.Boar;
 import ru.hozhasaitov.app.entity.eukaryotes.animals.predatores.Bear;
+import ru.hozhasaitov.app.util.Randomaizer;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +17,7 @@ public class InitializeMap {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j] = new Cell();
-//                fill(fields[i][j]);
+               fill(cells[i][j]);
 
             }
         }
@@ -25,7 +26,7 @@ public class InitializeMap {
     }
 
     private static void fill(Cell cell) {
-        int random = ThreadLocalRandom.current().nextInt(0, 100);
+        int random = Randomaizer.randomInt();
         if (random < 50) {
             cell.addEukaryote(new Bear());
         } else {

@@ -1,19 +1,28 @@
 package ru.hozhasaitov.app.entity.eukaryotes.animals;
 
 import ru.hozhasaitov.app.entity.eukaryotes.Eukaryote;
+import ru.hozhasaitov.app.entity.eukaryotes.animals.predatores.Bear;
 import ru.hozhasaitov.app.entity.map.Cell;
 import ru.hozhasaitov.app.entity.map.GameMap;
 import ru.hozhasaitov.app.interfaces.*;
-import ru.hozhasaitov.app.util.Randomaizer;
+import ru.hozhasaitov.app.util.DecrementCounterAnimal;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Animal extends Eukaryote implements Movable, Spawnable, Dieable, Eatable {
+public class Animal extends Eukaryote implements Movable, Spawnable, Dieable, Eatable {
     Cell[][] gameMap = GameMap.GAME_MAP.getMap();
+
+    protected Map<Class<?>, Integer> foodMap = new HashMap<>();
     protected int speed;
     protected double amountFod;
+
 
     public int getSpeed() {
         return speed;
@@ -28,7 +37,21 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
 
     @Override
     public void die() {
+        if (this instanceof PredatoryAnimal) {
+            if (weight <= 0) {
 
+                DecrementCounterAnimal.decrement(this);
+                GameMap.GAME_MAP.getMap()[getCoorY()][getCoorX()].getPredatoryAnimals().remove(this);
+
+            }
+        } else if (this instanceof HerbivorousAnimal) {
+            if (weight <= 0) {
+
+                DecrementCounterAnimal.decrement(this);
+                GameMap.GAME_MAP.getMap()[getCoorY()][getCoorX()].getHerbivorousAnimals().remove(this);
+
+            }
+        }
     }
 
     @Override
@@ -40,14 +63,14 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
 
         Cell[] lineX;
         int off = Math.max(coorX - this.getSpeed(), 0);
-        int to = Math.min(coorX + this.getSpeed() + 1, gameMap[coorY].length);
+        int to = Math.min(coorX + this.getSpeed(), gameMap[coorY].length);
         lineX = Arrays.copyOfRange(gameMap[coorY], off, to);
 
         int offY = Math.max(coorY - this.getSpeed(), 0);
         int toY = Math.min(coorY + this.getSpeed() + 1, gameMap.length);
 
         Cell[] lineY = new Cell[toY - offY];
-        for (int i = offY, j = 0; i < gameMap.length; i++, j++) {
+        for (int i = offY, j = 0; i < lineY.length; i++, j++) {
             lineY[j] = gameMap[i][coorX];
         }
 
@@ -157,45 +180,48 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
 
     @Override
     public void spawn() {
+        Class<? extends Animal> animal = this.getClass();
+        AtomicInteger counter = new AtomicInteger(1);
+        AtomicBoolean isPredator = new AtomicBoolean(false);
+        gameMap[this.getCoorY()][this.getCoorX()].getPredatoryAnimals().forEach(p -> {
+            if (animal == p.getClass())
+                counter.getAndIncrement();
+            isPredator.set(true);
+        });
+        if (!isPredator.get()) {
+            gameMap[this.getCoorY()][this.getCoorX()].getHerbivorousAnimals().forEach(h -> {
+                if (animal == h.getClass())
+                    counter.getAndIncrement();
+            });
+        }
+        if (counter.get() > 1 && counter.get() < limitAmount) {
+            if (isPredator.get()) {
 
+                try {
+                    gameMap[this.getCoorY()][this.getCoorX()].getPredatoryAnimals()
+                            .add((PredatoryAnimal) this.clone());
+                } catch (CloneNotSupportedException e) {
+                    System.out.println("Не получилось клонировать");
+                }
+
+            } else {
+                try {
+                    gameMap[this.getCoorY()][this.getCoorX()].getHerbivorousAnimals()
+                            .add((HerbivorousAnimal) this.clone());
+                } catch (CloneNotSupportedException e) {
+                    System.out.println("Не получилось клонировать");
+                }
+            }
+        }
     }
 
     @Override
-    public void eat(Map<Class<?>, Integer> foodMap) {
-        if (this instanceof PredatoryAnimal) {
-            List<HerbivorousAnimal> herbivorousAnimals = gameMap[this.getCoorY()][this.getCoorX()]
-                    .getHerbivorousAnimals().stream().filter(h -> foodMap.containsKey(h.getClass())).toList();
-            for (int i = 0; i < herbivorousAnimals.size(); i++) {
-                HerbivorousAnimal h = herbivorousAnimals.get(i);
-                if (tryingEat(h, foodMap.get(h.getClass()))) {
-                    break;
-                }
-            }
+    public void eat() {
 
-        }
+
     }
 
-    private boolean tryingEat(HerbivorousAnimal h, Integer integer) {
-        List<HerbivorousAnimal> herbivorousAnimals = gameMap[h.getCoorY()][getCoorX()]
-                .getHerbivorousAnimals();
-
-        if (integer >= Randomaizer.randomInt()) {
-
-            herbivorousAnimals.remove(h);
-            decrementСounterAnimal(h);
-            return  true;
-        }
-        return false;
-    }
-
-    private void decrementСounterAnimal(Eukaryote e) {
-        try {
-            java.lang.reflect.Field count = e.getClass().getDeclaredField("count");
-            count.setAccessible(true);
-            int value = count.getInt(e);
-            count.set(e, value - 1);
-        } catch (NoSuchFieldException | IllegalAccessException u) {
-            System.out.println("Не получилось уменьшить счетчик животного");
-        }
+    public void finishRound() {
+        weight = weight - amountFod;
     }
 }

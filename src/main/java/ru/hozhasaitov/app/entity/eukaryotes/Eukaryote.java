@@ -1,10 +1,8 @@
 package ru.hozhasaitov.app.entity.eukaryotes;
 
-import ru.hozhasaitov.app.interfaces.Spawnable;
-
 public abstract class Eukaryote {
 
-    protected int maximumAmount;
+    protected int limitAmount;
     protected int coorX;
     protected int coorY;
 
@@ -19,8 +17,8 @@ public abstract class Eukaryote {
         return weight;
     }
 
-    public int getMaximumAmount() {
-        return maximumAmount;
+    public int getLimitAmount() {
+        return limitAmount;
     }
 
     public void setCoorX(int coorX) {
