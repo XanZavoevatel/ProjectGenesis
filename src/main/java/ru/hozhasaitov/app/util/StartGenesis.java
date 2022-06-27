@@ -23,12 +23,12 @@ public class StartGenesis {
         System.out.println("boar:" + Boar.getCount());
         PrintMap.printMap(GameMap.GAME_MAP.getMap());
         bear.move();
-        bear.eat(Bear.foodMap);
+        bear.eat();
         System.out.println("Координаты медведя: " + bear.getCoorX() + "/" + bear.getCoorY());
         System.out.println("boar:" + Boar.getCount());
         PrintMap.printMap(GameMap.GAME_MAP.getMap());
         bear.move();
-        bear.eat(Bear.foodMap);
+        bear.eat();
         System.out.println("Координаты медведя: " + bear.getCoorX() + "/" + bear.getCoorY());
         System.out.println("boar:" + Boar.getCount());
         PrintMap.printMap(GameMap.GAME_MAP.getMap());

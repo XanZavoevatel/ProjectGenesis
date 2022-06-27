@@ -4,14 +4,10 @@ import ru.hozhasaitov.app.entity.eukaryotes.Eukaryote;
 import ru.hozhasaitov.app.entity.map.Cell;
 import ru.hozhasaitov.app.entity.map.GameMap;
 import ru.hozhasaitov.app.interfaces.*;
-import ru.hozhasaitov.app.util.Randomaizer;
-
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public abstract class Animal extends Eukaryote implements Movable, Spawnable, Dieable, Eatable {
-    Cell[][] gameMap = GameMap.GAME_MAP.getMap();
+    protected Cell[][] gameMap = GameMap.GAME_MAP.getMap();
     protected int speed;
     protected double amountFod;
 
@@ -58,18 +54,16 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
 
     private boolean searchWayX(Animal animal, int coorX, int coorY, Cell[] line, int off) {
         int start = line.length % 2 == 0 ? line.length / 2 : line.length / 2 + 1;
-        int counter = start;
         boolean isFoundRoute = false;
-        isFoundRoute = foundRoute(animal, coorX, coorY, line, off, start, counter, isFoundRoute, true);
+        isFoundRoute = foundRoute(animal, coorX, coorY, line, off, start, start, isFoundRoute, true);
         return isFoundRoute;
 
     }
 
     private boolean searchWayY(Animal animal, int coorX, int coorY, Cell[] line, int off) {
         int start = line.length % 2 == 0 ? line.length / 2 : line.length / 2 + 1;
-        int counter = start;
-        boolean isFoundRoute = false;
-        isFoundRoute = foundRoute(animal, coorX, coorY, line, off, start, counter, isFoundRoute, false);
+        boolean isFoundRoute;
+        isFoundRoute = foundRoute(animal, coorX, coorY, line, off, start, start, false, false);
         return isFoundRoute;
 
     }
@@ -80,8 +74,7 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
             while (!isFoundRoute && counter < line.length) {
                 if (line[counter].getHerbivorousAnimals().size() != 0) {
                     removeAnimal(animal, coorX, coorY, off, counter, thisX);
-                    isFoundRoute = true;
-                    break;
+                    return true;
                 }
                 counter++;
             }
@@ -91,7 +84,7 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
                 while (counter >= 0) {
                     if (line[counter].getHerbivorousAnimals().size() != 0) {
                         removeAnimal(animal, coorX, coorY, off, counter, thisX);
-                        isFoundRoute = true;
+                        return true;
 
                     }
                     counter--;
@@ -102,8 +95,7 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
             while (!isFoundRoute && counter < line.length) {
                 if (line[counter].getPlants().size() != 0) {
                     removeAnimal(animal, coorX, coorY, off, counter, thisX);
-                    isFoundRoute = true;
-                    break;
+                    return true;
                 }
                 counter++;
             }
@@ -113,7 +105,7 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
                 while (counter >= 0) {
                     if (line[counter].getPlants().size() != 0) {
                         removeAnimal(animal, coorX, coorY, off, counter, thisX);
-                        isFoundRoute = true;
+                        return true;
 
                     }
                     counter--;
@@ -121,7 +113,7 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
             }
 
         }
-        return isFoundRoute;
+        return false;
     }
 
     private void removeAnimal(Animal animal, int coorX, int coorY, int off, int counter, boolean thisX) {
@@ -161,41 +153,8 @@ public abstract class Animal extends Eukaryote implements Movable, Spawnable, Di
     }
 
     @Override
-    public void eat(Map<Class<?>, Integer> foodMap) {
-        if (this instanceof PredatoryAnimal) {
-            List<HerbivorousAnimal> herbivorousAnimals = gameMap[this.getCoorY()][this.getCoorX()]
-                    .getHerbivorousAnimals().stream().filter(h -> foodMap.containsKey(h.getClass())).toList();
-            for (int i = 0; i < herbivorousAnimals.size(); i++) {
-                HerbivorousAnimal h = herbivorousAnimals.get(i);
-                if (tryingEat(h, foodMap.get(h.getClass()))) {
-                    break;
-                }
-            }
-
-        }
+    public void eat() {
     }
 
-    private boolean tryingEat(HerbivorousAnimal h, Integer integer) {
-        List<HerbivorousAnimal> herbivorousAnimals = gameMap[h.getCoorY()][getCoorX()]
-                .getHerbivorousAnimals();
 
-        if (integer >= Randomaizer.randomInt()) {
-
-            herbivorousAnimals.remove(h);
-            decrementСounterAnimal(h);
-            return  true;
-        }
-        return false;
-    }
-
-    private void decrementСounterAnimal(Eukaryote e) {
-        try {
-            java.lang.reflect.Field count = e.getClass().getDeclaredField("count");
-            count.setAccessible(true);
-            int value = count.getInt(e);
-            count.set(e, value - 1);
-        } catch (NoSuchFieldException | IllegalAccessException u) {
-            System.out.println("Не получилось уменьшить счетчик животного");
-        }
-    }
 }

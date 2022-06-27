@@ -2,7 +2,11 @@ package ru.hozhasaitov.app.entity.eukaryotes;
 
 import ru.hozhasaitov.app.interfaces.Spawnable;
 
+import java.util.Map;
+
 public abstract class Eukaryote {
+
+    protected Map<Class<?> , Integer> diet;
 
     protected int maximumAmount;
     protected int coorX;
@@ -17,6 +21,10 @@ public abstract class Eukaryote {
 
     public double getWeight() {
         return weight;
+    }
+
+    public Map<Class<?>, Integer> getDiet() {
+        return diet;
     }
 
     public int getMaximumAmount() {
