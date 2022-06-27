@@ -1,10 +1,11 @@
 package ru.hozhasaitov.app.entity.eukaryotes;
 
+import ru.hozhasaitov.app.interfaces.Dieable;
 import ru.hozhasaitov.app.interfaces.Spawnable;
 
 import java.util.Map;
 
-public abstract class Eukaryote {
+public abstract class Eukaryote implements Spawnable, Dieable {
 
     protected Map<Class<?> , Integer> diet;
 
@@ -12,12 +13,14 @@ public abstract class Eukaryote {
     protected int coorX;
     protected int coorY;
 
+    protected double weight;
+
+    protected int limitAmount;
+
 
     public Eukaryote() {
 
     }
-
-    protected double weight;
 
     public double getWeight() {
         return weight;
@@ -29,6 +32,10 @@ public abstract class Eukaryote {
 
     public int getMaximumAmount() {
         return maximumAmount;
+    }
+
+    public int getLimitAmount() {
+        return limitAmount;
     }
 
     public void setCoorX(int coorX) {

@@ -29,12 +29,22 @@ public class Boar extends HerbivorousAnimal {
     }
 
     @Override
-    public void move() {
+    public void move(int[] coordinates) {
 
     }
 
     @Override
     public void spawn() {
+
+    }
+
+    @Override
+    public int[] searchPrey() {
+        return new int[0];
+    }
+
+    @Override
+    public void eat() {
 
     }
 }
