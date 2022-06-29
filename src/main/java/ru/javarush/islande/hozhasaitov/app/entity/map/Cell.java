@@ -8,6 +8,8 @@ import ru.javarush.islande.hozhasaitov.app.interfaces.PredatoryAnimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Cell {
     private List<PredatoryAnimal> predatoryAnimals = new ArrayList<>();
@@ -15,6 +17,12 @@ public class Cell {
     private List<Plant> plants = new ArrayList<>();
 
     private Relief relief;
+
+    private final Lock lock = new ReentrantLock(true);
+
+    public Lock getLock() {
+        return lock;
+    }
 
     private String view;
 

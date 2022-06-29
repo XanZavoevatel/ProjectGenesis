@@ -16,7 +16,7 @@ public class InitializeMap {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j] = new Cell();
-//                fill(fields[i][j]);
+                fill(cells[i][j]);
 
             }
         }

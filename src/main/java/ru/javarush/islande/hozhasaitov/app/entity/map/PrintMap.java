@@ -18,5 +18,6 @@ public class PrintMap {
             }
             System.out.println();
         }
+        System.out.println("-----------------------------");
     }
 }
