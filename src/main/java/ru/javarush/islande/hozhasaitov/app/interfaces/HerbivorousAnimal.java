@@ -40,4 +40,12 @@ public abstract class HerbivorousAnimal extends Animal {
         }
     }
 
+    @Override
+    public void die() {
+        if (weight > 0) {
+            weight = weight - amountFod;
+        }else if (weight == 0 || weight < 0) {
+            gameMap[coorY][coorX].getHerbivorousAnimals().remove(this);
+        }
+    }
 }

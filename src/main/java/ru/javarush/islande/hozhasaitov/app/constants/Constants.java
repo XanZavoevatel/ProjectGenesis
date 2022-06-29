@@ -6,8 +6,8 @@ public class Constants {
     //-------------------ANIMALS WEIGHT---------------------------
     public static final double WOLF_WEIGHT = 50.0;
     public static final double BOA_WEIGHT = 15.0;
-    public static final double FOX_WEIGHT = 500.0;
-    public static final double BEAR_WEIGHT = 50.0;
+    public static final double FOX_WEIGHT = 8.0;
+    public static final double BEAR_WEIGHT = 500.0;
     public static final double EAGLE_WEIGHT = 6.0;
     public static final double HORSE_WEIGHT = 400.0;
     public static final double DEER_WEIGHT = 300.0;

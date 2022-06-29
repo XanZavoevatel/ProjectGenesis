@@ -11,8 +11,9 @@ public class Bear extends PredatoryAnimal {
     public Bear() {
         super.weight = Constants.BEAR_WEIGHT;
         super.speed = 3;
-        count++;
         super.diet = Diets.DIET_BEAR;
+        super.amountFod = 80;
+        count++;
     }
 
     public int getCount() {
@@ -25,11 +26,7 @@ public class Bear extends PredatoryAnimal {
 
     @Override
     public void die() {
-
-    }
-
-    @Override
-    public void spawn() {
-
+        super.die();
+        System.out.println(weight);
     }
 }

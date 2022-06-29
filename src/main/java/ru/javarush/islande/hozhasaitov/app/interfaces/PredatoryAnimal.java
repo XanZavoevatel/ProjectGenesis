@@ -15,6 +15,7 @@ public abstract class PredatoryAnimal extends Animal {
                 .getHerbivorousAnimals().stream().filter(h -> diet.containsKey(h.getClass())).toList();
         for (HerbivorousAnimal h : herbivorousAnimals) {
             if (tryingEat(h, diet.get(h.getClass()))) {
+                weight = weight + h.getWeight();
                 break;
             }
         }
@@ -79,6 +80,15 @@ public abstract class PredatoryAnimal extends Animal {
                 System.out.println("Не получилось клонировать");
             }
 
+        }
+    }
+
+    @Override
+    public void die() {
+        if (weight == 0 || weight < 0) {
+            gameMap[coorY][coorX].getPredatoryAnimals().remove(this);
+        }else {
+            weight = weight - amountFod;
         }
     }
 }

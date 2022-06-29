@@ -31,6 +31,7 @@ public class GameWorker extends  Thread{
             executorService.shutdown();
             try {
                 if (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+
                     PrintMap.printMap(GameMap.GAME_MAP.getMap());
 
                 }
