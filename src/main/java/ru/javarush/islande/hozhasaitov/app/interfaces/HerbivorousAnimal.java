@@ -28,7 +28,7 @@ public abstract class HerbivorousAnimal extends Animal {
             if (herbivorous == h.getClass())
                 counter.getAndIncrement();
         });
-        if (counter.get() > 1 && counter.get() < limitAmount) {
+        if (counter.get() > 1 && counter.get() < maximumAmount) {
 
             try {
                 gameMap[this.getCoorY()][this.getCoorX()].getHerbivorousAnimals()
@@ -42,9 +42,9 @@ public abstract class HerbivorousAnimal extends Animal {
 
     @Override
     public void die() {
-        if (weight > 0) {
-            weight = weight - amountFod;
-        }else if (weight == 0 || weight < 0) {
+        if (weightMax > 0) {
+            weightMax = weightMax - amountFod;
+        }else if (weightMax == 0 || weightMax < 0) {
             gameMap[coorY][coorX].getHerbivorousAnimals().remove(this);
         }
     }

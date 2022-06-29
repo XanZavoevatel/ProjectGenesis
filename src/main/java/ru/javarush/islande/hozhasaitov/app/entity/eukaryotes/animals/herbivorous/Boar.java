@@ -7,7 +7,7 @@ public class Boar extends HerbivorousAnimal {
 
     private static int count;
     public Boar() {
-        super.weight = Constants.BOAR_WEIGHT;
+        super.weightMax = Constants.BOAR_WEIGHT;
         super.maximumAmount = Constants.BOAR_MAXIMUM_AMOUNT;
         count++;
         //!!!!!!!!!!!!!!!!!!!!!!!!

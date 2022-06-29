@@ -30,7 +30,7 @@ public class GameWorker extends  Thread{
             lineWorkers.forEach(executorService::submit);
             executorService.shutdown();
             try {
-                if (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+                if (executorService.awaitTermination(1000, TimeUnit.DAYS)) {
 
                     PrintMap.printMap(GameMap.GAME_MAP.getMap());
 

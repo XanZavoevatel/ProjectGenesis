@@ -13,17 +13,20 @@ public abstract class Eukaryote implements Spawnable, Dieable {
     protected int coorX;
     protected int coorY;
 
+    protected double weightMax;
+
     protected double weight;
 
-    protected int limitAmount;
-
+    public double getWeight() {
+        return weight;
+    }
 
     public Eukaryote() {
 
     }
 
-    public double getWeight() {
-        return weight;
+    public double getWeightMax() {
+        return weightMax;
     }
 
     public Map<Class<?>, Integer> getDiet() {
@@ -34,9 +37,6 @@ public abstract class Eukaryote implements Spawnable, Dieable {
         return maximumAmount;
     }
 
-    public int getLimitAmount() {
-        return limitAmount;
-    }
 
     public void setCoorX(int coorX) {
         this.coorX = coorX;

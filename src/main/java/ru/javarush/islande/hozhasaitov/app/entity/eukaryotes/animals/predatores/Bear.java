@@ -9,7 +9,8 @@ public class Bear extends PredatoryAnimal {
 
 
     public Bear() {
-        super.weight = Constants.BEAR_WEIGHT;
+        super.weightMax = Constants.BEAR_WEIGHT;
+        super.weight = weightMax;
         super.speed = 3;
         super.diet = Diets.DIET_BEAR;
         super.amountFod = 80;
@@ -27,6 +28,6 @@ public class Bear extends PredatoryAnimal {
     @Override
     public void die() {
         super.die();
-        System.out.println(weight);
+        System.out.println(weightMax);
     }
 }

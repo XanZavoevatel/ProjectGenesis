@@ -11,12 +11,14 @@ public abstract class PredatoryAnimal extends Animal {
 
     @Override
     public void eat() {
-        List<HerbivorousAnimal> herbivorousAnimals = gameMap[this.getCoorY()][this.getCoorX()]
-                .getHerbivorousAnimals().stream().filter(h -> diet.containsKey(h.getClass())).toList();
-        for (HerbivorousAnimal h : herbivorousAnimals) {
-            if (tryingEat(h, diet.get(h.getClass()))) {
-                weight = weight + h.getWeight();
-                break;
+        if (gameMap[this.getCoorY()][this.getCoorX()].getHerbivorousAnimals().size() > 0) {
+            List<HerbivorousAnimal> herbivorousAnimals = gameMap[this.getCoorY()][this.getCoorX()]
+                    .getHerbivorousAnimals().stream().filter(h -> diet.containsKey(h.getClass())).toList();
+            for (HerbivorousAnimal h : herbivorousAnimals) {
+                if (tryingEat(h, diet.get(h.getClass()))) {
+                    weight = Math.min(weightMax + h.getWeightMax(), weightMax);
+                    break;
+                }
             }
         }
     }
@@ -71,7 +73,7 @@ public abstract class PredatoryAnimal extends Animal {
             if (predator == p.getClass())
                 counter.getAndIncrement();
         });
-        if (counter.get() > 1 && counter.get() < limitAmount) {
+        if (counter.get() > 1 && counter.get() < maximumAmount) {
 
             try {
                 gameMap[this.getCoorY()][this.getCoorX()].getPredatoryAnimals()
@@ -85,10 +87,10 @@ public abstract class PredatoryAnimal extends Animal {
 
     @Override
     public void die() {
-        if (weight == 0 || weight < 0) {
+        if (weightMax == 0 || weightMax < 0) {
             gameMap[coorY][coorX].getPredatoryAnimals().remove(this);
         }else {
-            weight = weight - amountFod;
+            weightMax = weightMax - amountFod;
         }
     }
 }
