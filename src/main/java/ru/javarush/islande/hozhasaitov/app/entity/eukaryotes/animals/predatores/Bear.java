@@ -28,6 +28,6 @@ public class Bear extends PredatoryAnimal {
     @Override
     public void die() {
         super.die();
-        System.out.println(weightMax);
+        System.out.println(weight);
     }
 }
