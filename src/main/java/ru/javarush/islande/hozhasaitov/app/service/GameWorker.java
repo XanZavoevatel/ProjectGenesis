@@ -22,12 +22,15 @@ public class GameWorker extends  Thread{
     @Override
     public void run() {
         ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(4);
-        List<LineWorker> lineWorkers = Arrays.stream(gameMap)
-                .map(LineWorker::new)
+        List<PredatorWorker> predatorWorkers = Arrays.stream(gameMap)
+                .flatMap(Arrays::stream)
+                .flatMap(cell -> cell.getPredatoryAnimals().stream())
+                .map(PredatorWorker::new)
                 .toList();
+
         mainPool.scheduleWithFixedDelay(() -> {
             ExecutorService executorService = Executors.newFixedThreadPool(4);
-            lineWorkers.forEach(executorService::submit);
+            predatorWorkers.forEach(executorService::submit);
             executorService.shutdown();
             try {
                 if (executorService.awaitTermination(1000, TimeUnit.DAYS)) {

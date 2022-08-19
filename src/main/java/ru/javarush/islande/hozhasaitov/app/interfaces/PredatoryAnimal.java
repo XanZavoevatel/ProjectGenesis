@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class PredatoryAnimal extends Animal {
-
+    private final Cell cell = gameMap[this.getCoorY()][this.getCoorX()];
     @Override
-    public void eat() {
+    public synchronized void eat() {
         if (gameMap[this.getCoorY()][this.getCoorX()].getHerbivorousAnimals().size() > 0) {
             List<HerbivorousAnimal> herbivorousAnimals = gameMap[this.getCoorY()][this.getCoorX()]
                     .getHerbivorousAnimals().stream().filter(h -> diet.containsKey(h.getClass())).toList();
@@ -23,7 +23,7 @@ public abstract class PredatoryAnimal extends Animal {
         }
     }
 
-    private boolean tryingEat(HerbivorousAnimal h, Integer integer) {
+    private synchronized boolean tryingEat(HerbivorousAnimal h, Integer integer) {
         List<HerbivorousAnimal> herbivorousAnimals = gameMap[h.getCoorY()][getCoorX()]
                 .getHerbivorousAnimals();
         if (integer >= Randomaizer.randomInt()) {
@@ -36,7 +36,7 @@ public abstract class PredatoryAnimal extends Animal {
     }
 
     @Override
-    public int[] searchPrey() {
+    public synchronized int[] searchPrey() {
         Cell[] lineMoveX = GetterLineX.getLine(this, gameMap);
         Cell[] lineMoveY = GetterLineY.getLine(this, gameMap);
         int offX = Math.max(this.getCoorX() - this.getSpeed(), 0);
@@ -52,8 +52,9 @@ public abstract class PredatoryAnimal extends Animal {
         return new int[]{coorX, coorY};
     }
 
+
     @Override
-    public void move(int[] coordinates) {
+    public synchronized void move(int[] coordinates) {
         int newCoordX = coordinates[0];
         int newCoordY = coordinates[1];
         int oldCoordX = this.coorX;

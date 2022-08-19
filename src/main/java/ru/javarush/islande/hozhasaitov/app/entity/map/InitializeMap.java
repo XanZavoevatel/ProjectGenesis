@@ -3,7 +3,9 @@ package ru.javarush.islande.hozhasaitov.app.entity.map;
 
 import ru.javarush.islande.hozhasaitov.app.entity.eukaryotes.animals.herbivorous.Boar;
 import ru.javarush.islande.hozhasaitov.app.entity.eukaryotes.animals.predatores.Bear;
+import ru.javarush.islande.hozhasaitov.app.util.Randomaizer;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class InitializeMap {
@@ -25,7 +27,7 @@ public class InitializeMap {
     }
 
     private static void fill(Cell cell) {
-        int random = ThreadLocalRandom.current().nextInt(0, 100);
+        int random = Randomaizer.randomInt();
         if (random < 50) {
             cell.addEukaryote(new Bear());
         } else {

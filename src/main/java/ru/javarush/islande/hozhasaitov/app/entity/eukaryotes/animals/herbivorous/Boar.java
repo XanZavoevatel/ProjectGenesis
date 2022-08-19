@@ -46,4 +46,9 @@ public class Boar extends HerbivorousAnimal {
     public void eat() {
 
     }
+
+    @Override
+    public String getView() {
+        return "|-|";
+    }
 }

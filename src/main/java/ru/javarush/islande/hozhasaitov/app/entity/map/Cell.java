@@ -12,9 +12,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Cell {
-    private List<PredatoryAnimal> predatoryAnimals = new ArrayList<>();
-    private List<HerbivorousAnimal> herbivorousAnimals = new ArrayList<>();
-    private List<Plant> plants = new ArrayList<>();
+    private volatile List<PredatoryAnimal> predatoryAnimals = new ArrayList<>();
+    private volatile List<HerbivorousAnimal> herbivorousAnimals = new ArrayList<>();
+    private volatile List<Plant> plants = new ArrayList<>();
 
     private Relief relief;
 
@@ -73,12 +73,24 @@ public class Cell {
     }
 
     private void printView() {
-        if (predatoryAnimals.size() != 0) {
+        if (predatoryAnimals.size() > herbivorousAnimals.size() && predatoryAnimals.size() > plants.size()) {
             view = " |+| ";
-        } else if (herbivorousAnimals.size() != 0) {
+        } else if (herbivorousAnimals.size() > predatoryAnimals.size() && herbivorousAnimals.size() > plants.size()) {
             view = " |-| ";
+        } else if (plants.size() > herbivorousAnimals.size() && plants.size() > predatoryAnimals.size()) {
+            view = " |/| ";
+
         } else
-        view = " | | ";
+        view = " |0| ";
+
+//        if (predatoryAnimals.size() > herbivorousAnimals.size()) {
+//            view = " |+| ";
+//        } else if (herbivorousAnimals.size() > predatoryAnimals.size()) {
+//            view = " |-| ";
+//        } else {
+//            view = " |/| ";
+//        }
+
     }
 
 

@@ -54,6 +54,8 @@ public abstract class Eukaryote implements Spawnable, Dieable {
         return coorY;
     }
 
+    public abstract String getView();
+
 //-------------ABSTRACT------------------
 
 }
